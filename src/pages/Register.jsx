@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import heroImage from "../assets/orthodox.png";
 
 export default function Register() {
@@ -12,12 +13,27 @@ export default function Register() {
     phone: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Registration successful! (Demo)");
+
+    alert("Registration successful! Please login.");
+
+    // Navigate to login page
+    navigate("/login");
+
+    setForm({
+      fullname: "",
+      email: "",
+      password: "",
+      year: "",
+      department: "",
+      phone: "",
+    });
   };
 
   return (
@@ -35,7 +51,7 @@ export default function Register() {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {[
+            {[ 
               { name: "fullname", type: "text", placeholder: "Full Name" },
               { name: "email", type: "email", placeholder: "Email" },
               { name: "password", type: "password", placeholder: "Password" },
@@ -60,7 +76,7 @@ export default function Register() {
               </motion.div>
             ))}
 
-            {/* Year of Study Dropdown */}
+            {/* Year of Study */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -82,7 +98,6 @@ export default function Register() {
               </select>
             </motion.div>
 
-            {/* Register Button with Advanced Transition */}
             <motion.button
               whileHover={{
                 scale: 1.08,
@@ -96,7 +111,6 @@ export default function Register() {
                          hover:from-yellow-400 hover:to-yellow-700 hover:text-black hover:shadow-yellow-400/50"
             >
               <span className="relative z-10">Register</span>
-              {/* Animated light sweep */}
               <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent 
                                translate-x-[-100%] hover:translate-x-[100%] transition-transform duration-700 ease-in-out"></span>
             </motion.button>

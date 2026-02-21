@@ -1,21 +1,32 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import heroImage from "../assets/orthodox.png";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
+  const navigate = useNavigate();
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const submit = (e) => {
     e.preventDefault();
-    alert("Logged in (demo)");
+
+    // Store token in localStorage
+    localStorage.setItem("token", "demoUserToken");
+
+    // Navigate to home page
+    navigate("/");
+
+    alert("Logged in successfully!");
+
+    setForm({ email: "", password: "" });
   };
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen bg-yellow-50 overflow-hidden">
-      {/* Left side - login form */}
+      {/* Left side - form */}
       <motion.div
         className="flex-1 flex items-center justify-center p-8 order-2 md:order-1"
         initial={{ x: -60, opacity: 0 }}
@@ -60,7 +71,7 @@ export default function Login() {
         </div>
       </motion.div>
 
-      {/* Right side - image with overlay text */}
+      {/* Right side - image */}
       <motion.div
         className="flex-1 relative h-64 md:h-screen order-1 md:order-2"
         initial={{ x: 80, opacity: 0 }}
@@ -74,7 +85,6 @@ export default function Login() {
         />
         <div className="absolute inset-0 bg-gradient-to-l from-black/60 via-black/40 to-transparent"></div>
 
-        {/* Text animation overlay */}
         <motion.div
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
